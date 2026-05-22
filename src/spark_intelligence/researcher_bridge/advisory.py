@@ -7180,7 +7180,8 @@ def _build_context_source_debug_reply(
             continue
         try:
             facts = json.loads(row["facts_json"] or "{}")
-        except Exception:
+        except Exception as _exc:
+            import logging as _logging; _logging.getLogger(__name__).warning("Unexpected error: %s", _exc)
             continue
         ledger = facts.get("source_ledger")
         if not isinstance(ledger, list) or not ledger:
