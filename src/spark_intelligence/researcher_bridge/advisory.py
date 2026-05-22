@@ -8663,7 +8663,8 @@ def build_researcher_reply(
                     state_db=state_db,
                     config_manager=config_manager,
                 )
-        except Exception:
+        except Exception as _exc:
+            import logging as _logging; _logging.getLogger(__name__).warning("Unexpected error: %s", _exc)
             pass
 
     if not personality_context_extra and _detect_context_source_debug_query(user_message):
