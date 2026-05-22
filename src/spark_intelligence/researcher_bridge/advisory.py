@@ -3780,7 +3780,8 @@ def _render_direct_provider_chat_fallback(
             surface_overlay = load_surface_overlay(inferred_surface)
             if surface_overlay:
                 persona_prompt = f"{persona_prompt}\n\n---\n\n{surface_overlay}"
-        except Exception:
+        except Exception as _exc:
+            import logging as _logging; _logging.getLogger(__name__).warning("Unexpected error: %s", _exc)
             pass
     current_state_block = _build_current_state_block(
         config_manager=config_manager,
