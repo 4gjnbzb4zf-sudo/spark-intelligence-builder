@@ -476,7 +476,8 @@ def _maybe_capture_user_instruction(
             try:
                 if archive_instruction(state_db, instruction_id=inst.instruction_id):
                     archived_texts.append(inst.instruction_text)
-            except Exception:
+            except Exception as _exc:
+                import logging as _logging; _logging.getLogger(__name__).warning("Unexpected error: %s", _exc)
                 continue
         if not archived_texts:
             return reply_text
