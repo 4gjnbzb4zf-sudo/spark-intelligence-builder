@@ -10285,7 +10285,8 @@ def build_researcher_reply(
                     actor_id="telegram_raw_episode_loader",
                     salience_decision=assessed_generic_memory_candidate.salience_decision,
                 )
-            except Exception:
+            except Exception as _exc:
+                import logging as _logging; _logging.getLogger(__name__).warning("Unexpected error: %s", _exc)
                 pass
         elif assessed_generic_memory_candidate.outcome == "belief_candidate":
             try:
