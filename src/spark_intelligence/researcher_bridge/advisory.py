@@ -3717,7 +3717,8 @@ def _build_current_state_block(
                 human_id=candidate,
                 actor_id="researcher_bridge_l1_state",
             )
-        except Exception:
+        except Exception as _exc:
+            import logging as _logging; _logging.getLogger(__name__).warning("Unexpected error: %s", _exc)
             continue
         records = (inspection.read_result.records if inspection.read_result else None) or []
         if records:
