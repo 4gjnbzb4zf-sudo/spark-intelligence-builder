@@ -8299,7 +8299,8 @@ def _telegram_voice_dashboard_agent_label(*, state_db: StateDB, human_id: str | 
             name = str(read_canonical_agent_state(state_db=state_db, human_id=human_id).agent_name or "").strip()
             if name:
                 return name
-        except Exception:
+        except Exception as _exc:
+            import logging as _logging; _logging.getLogger(__name__).warning("Unexpected error: %s", _exc)
             pass
     if agent_id:
         return f"Agent {hashlib.sha256(str(agent_id).encode('utf-8')).hexdigest()[:8]}"
