@@ -459,7 +459,8 @@ class ConfigManager:
             principal = str(result.stdout or "").strip()
             if "\\" in principal and "\n" not in principal and ":" not in principal:
                 return principal
-        except Exception:
+        except Exception as _exc:
+            import logging as _logging; _logging.getLogger(__name__).warning("Unexpected error: %s", _exc)
             pass
         domain = os.environ.get("USERDOMAIN", "")
         username = os.environ.get("USERNAME") or getuser()
