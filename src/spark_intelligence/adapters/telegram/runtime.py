@@ -349,7 +349,8 @@ def _maybe_save_reply_as_draft(
                 f"{timestamp}Z user={user} iter={is_iteration} "
                 f"gen={is_generative} msg={user_message[:120]!r} reply_len={len(reply)}\n"
             )
-    except Exception:
+    except Exception as _exc:
+        import logging as _logging; _logging.getLogger(__name__).warning("Unexpected error: %s", _exc)
         pass
 
     if is_iteration:
