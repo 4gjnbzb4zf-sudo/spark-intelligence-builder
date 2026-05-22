@@ -1302,7 +1302,8 @@ def simulate_telegram_update(
 
                                 if _detect_generic_memory_deletion(effective_text) is not None:
                                     _instruction_intent = None
-                        except Exception:
+                        except Exception as _exc:
+                            import logging as _logging; _logging.getLogger(__name__).warning("Unexpected error: %s", _exc)
                             pass
                     try:
                         memory_enabled = bool(config_manager.get_path("spark.memory.enabled"))
