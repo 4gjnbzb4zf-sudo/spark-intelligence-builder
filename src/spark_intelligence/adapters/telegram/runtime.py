@@ -404,7 +404,8 @@ def _maybe_save_reply_as_draft(
                 session_id=session_id,
                 chip_used=chip_used,
             )
-        except Exception:
+        except Exception as _exc:
+            import logging as _logging; _logging.getLogger(__name__).warning("Unexpected error: %s", _exc)
             pass
         return reply_text
 
